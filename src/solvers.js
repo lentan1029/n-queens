@@ -146,3 +146,37 @@ window.countNQueensSolutions = function(n) {
   console.log('Single solution for ' + n + ' queens:', JSON.stringify(solution));
   return solution;
 };
+
+window.NEWcountNQueensSolutions = function(n) {
+  // var rows = "0".repeat(n); //100000000
+  // var cols = "0".repeat(n); //100000000
+  // var madl = "0".repeat(n * 2 - 1); //000010000
+  // var midl = "0".repeat(n * 2 - 1); //100000000
+  var cols = madl = midl = counter = row = poss = 0;
+  var size = 1 << n;
+  var inner = function(cols, madl, midl) {
+    if(row > n - 1) {
+      counter++;
+      return;
+    }
+    poss = cols | madl | midl;
+    for (var i = n - 1; i >= 0; i--) {
+      debugger;
+      if(!(poss % 2)){
+        row++;
+        inner(cols|1<<i, ((madl|1<<i)>>1)%size, ((midl|1<<i)<<1)%size);
+        row--;
+      }
+    }
+  }
+  inner(cols, madl, midl);
+  return counter;
+};
+
+window.newWorker = function() {
+  var w = new Worker(window.URL.createObjectURL(blob));
+  w.onmessage = function(e) {
+    console.log(e.data);
+  };
+  return w;
+};
