@@ -147,36 +147,15 @@ window.countNQueensSolutions = function(n) {
   return solution;
 };
 
-window.NEWcountNQueensSolutions = function(n) {
-  // var rows = "0".repeat(n); //100000000
-  // var cols = "0".repeat(n); //100000000
-  // var madl = "0".repeat(n * 2 - 1); //000010000
-  // var midl = "0".repeat(n * 2 - 1); //100000000
-  var cols = madl = midl = counter = row = poss = 0;
-  var size = 1 << n;
-  var inner = function(cols, madl, midl) {
-    if(row > n - 1) {
-      counter++;
-      return;
-    }
-    poss = cols | madl | midl;
-    for (var i = n - 1; i >= 0; i--) {
-      debugger;
-      if(!(poss % 2)){
-        row++;
-        inner(cols|1<<i, ((madl|1<<i)>>1)%size, ((midl|1<<i)<<1)%size);
-        row--;
-      }
-    }
-  }
-  inner(cols, madl, midl);
-  return counter;
-};
-
-window.newWorker = function() {
-  var w = new Worker(window.URL.createObjectURL(blob));
-  w.onmessage = function(e) {
-    console.log(e.data);
+window.NEWcountNQueensSolutions = z => {
+  f = 1 << z, g = (N, q, u, ee, n, s) => {
+    z - ee || d++;
+    n = N | q | u;
+    for (s = 1; f - s; s*=2)
+      n&s || g(N|s, (q|s)>>1, (u|s)*2^f, ee+1)
   };
-  return w;
-};
+  g(d=0, 0, 0, 0);
+  return d
+}
+
+Q=z=>{f=1<<z,g=(N,q,u,ee,n,s)=>{z-ee||d++;n=N|q|u;for(s=1;f-s;s*=2)n&s||g(N|s,(q|s)>>1,(u|s)*2^f,ee+1)};g(d=0,0,0,0);return d}
