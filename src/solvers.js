@@ -147,15 +147,30 @@ window.countNQueensSolutions = function(n) {
   return solution;
 };
 
-window.NEWcountNQueensSolutions = z => {
-  f = 1 << z, g = (N, q, u, ee, n, s) => {
-    z - ee || d++;
-    n = N | q | u;
-    for (s = 1; f - s; s*=2)
-      n&s || g(N|s, (q|s)>>1, (u|s)*2^f, ee+1)
-  };
-  g(d=0, 0, 0, 0);
-  return d
-}
+// window.NEWcountNQueensSolutions = Q => {
+//   N = 1 << Q, u = (e, E, n, s) => {
+//     N - e - 1 || d++;
+//     for (s = 1; N - s; s*=2)
+//       (e | E | n) & s || u(e|s, (E|s)>>1, (n|s)*2^N)
+//   };
+//   u(d=0, 0, 0);
+//   return d
+// }
 
-Q=z=>{f=1<<z,g=(N,q,u,ee,n,s)=>{z-ee||d++;n=N|q|u;for(s=1;f-s;s*=2)n&s||g(N|s,(q|s)>>1,(u|s)*2^f,ee+1)};g(d=0,0,0,0);return d}
+
+// Q = (u, e = 0, E = 0, n = 0, s = 1) => {
+//   e ? N - e - 1 || d++ : d = 0;
+//   for (N = 1 << u; N - s; s*=2)
+//     (e | E | n) & s || Q(u, e|s, (E|s)>>1, (n|s)*2^N);
+//   return d
+// }
+
+Q=(u,e=0,E=0,n=0,s=1)=>{e?N-e-1||d++:d=0;for(N=1<<u;N-s;s*=2)(e|E|n)&s||Q(u,e|s,(E|s)>>1,(n|s)*2^N);return d}
+
+//a=Q=>{N=1<<Q,u=(e,E,n,s)=>{N-e-1||d++;for(s=1;N-s;s*=2)(e|E|n)&s||u(e|s,(E|s)>>1,(n|s)*2^N)};u(d=0,0,0);return d}
+
+// Q=z=>{f=1<<z,g=(N,q,u,s)=>{f-N-1||d++;for(s=1;f-s;s*=2)(N|q|u)&s||g(N|s,(q|s)>>1,(u|s)*2^f)};g(d=0,0,0);return d}
+
+// Q=z=>{f=1<<z,g=(N,q,u,n,s)=>{f-N-1||d++;n=N|q|u;for(s=1;f-s;s*=2)n&s||g(N|s,(q|s)>>1,(u|s)*2^f)};g(d=0,0,0);return d}
+
+//Q=z=>{f=1<<z,g=(N,q,u,ee,n,s)=>{z-ee||d++;n=N|q|u;for(s=1;f-s;s*=2)n&s||g(N|s,(q|s)>>1,(u|s)*2^f,ee+1)};g(d=0,0,0,0);return d}
